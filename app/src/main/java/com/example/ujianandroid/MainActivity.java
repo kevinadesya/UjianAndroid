@@ -12,6 +12,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
+    Double vUmur;
+    String vHuruf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,11 @@ public class MainActivity extends AppCompatActivity {
                 String isian_nama_depan = edNamaDepan.getText().toString();
                 String isian_nama_belakang = edNamaBelakang.getText().toString();
                 String isian_umur = edUmur.getText().toString();
+                vUmur = Double.parseDouble(edUmur.getText().toString());
 
                 if(isian_nama_depan.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Isian masih kosong", Toast.LENGTH_SHORT).show();
-                }else{
+                }else {
                     String nama_lengkap = isian_nama_depan.concat(" ").concat(isian_nama_belakang);
                     daftar_nama.clear();
                     daftar_nama.add(nama_lengkap);
@@ -45,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
                     edUmur.setText("");
                     intent_list.putStringArrayListExtra("daftar_nama", daftar_nama);
                     startActivity(intent_list);
+
+                    if (vUmur <= 10) {
+                        vHuruf = "Anak";
+                    } else if (vUmur >= 11 && vUmur <= 20) {
+                        vHuruf = "Remaja";
+                    } else if (vUmur >= 21 && vUmur <= 40) {
+                        vHuruf = "Dewasa";
+                    } else {
+                        vHuruf = "Tua";
+                    }
                 }
             }
         });

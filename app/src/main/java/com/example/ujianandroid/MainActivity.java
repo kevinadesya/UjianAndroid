@@ -12,8 +12,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    Double vUmur;
-    String vHuruf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,28 +33,27 @@ public class MainActivity extends AppCompatActivity {
                 String isian_nama_depan = edNamaDepan.getText().toString();
                 String isian_nama_belakang = edNamaBelakang.getText().toString();
                 String isian_umur = edUmur.getText().toString();
-                vUmur = Double.parseDouble(edUmur.getText().toString());
 
                 if(isian_nama_depan.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Isian masih kosong", Toast.LENGTH_SHORT).show();
                 }else {
-                    String nama_lengkap = isian_nama_depan.concat(" ").concat(isian_nama_belakang);
+                    Integer counter = Integer.valueOf(isian_umur);
+                    String nama_lengkap = isian_nama_depan.concat(" ").concat(isian_nama_belakang).concat(", ").concat("Status : ");
                     daftar_nama.clear();
-                    daftar_nama.add(nama_lengkap);
+                    for(Integer i = 1; i <= counter; i++) {
+                        if(counter >= 1 && counter <= 10) {
+                            daftar_nama.add( i + " " +  nama_lengkap.concat("Anak"));
+                        } else if(counter >= 11 && counter <= 20) {
+                            daftar_nama.add( i + " " +  nama_lengkap.concat("Remaja"));
+                        } else if(counter >= 21 && counter <= 40) {
+                            daftar_nama.add( i + " " +  nama_lengkap.concat("Dewasa"));
+                        } else {
+                            daftar_nama.add( i + " " +  nama_lengkap.concat("Tua"));
+                        }
                     edNamaDepan.setText("");
                     edNamaBelakang.setText("");
-                    edUmur.setText("");
                     intent_list.putStringArrayListExtra("daftar_nama", daftar_nama);
                     startActivity(intent_list);
-
-                    if (vUmur <= 10) {
-                        vHuruf = "Anak";
-                    } else if (vUmur >= 11 && vUmur <= 20) {
-                        vHuruf = "Remaja";
-                    } else if (vUmur >= 21 && vUmur <= 40) {
-                        vHuruf = "Dewasa";
-                    } else {
-                        vHuruf = "Tua";
                     }
                 }
             }
